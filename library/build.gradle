@@ -1,9 +1,8 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
-
+    namespace = "com.readystatesoftware.chuck"
+    compileSdk = 36
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         consumerProguardFiles 'proguard-rules.pro'
@@ -11,10 +10,11 @@ android {
 }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile "com.squareup.okhttp3:okhttp:$okhttp3Version"
-    compile 'nl.qbusict:cupboard:2.2.0'
-    compile "com.android.support:design:$supportLibVersion"
+    implementation 'com.google.code.gson:gson:2.13.2'
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3Version"
+    implementation 'nl.qbusict:cupboard:2.2.0'
+    implementation "com.google.android.material:material:1.13.0"
+
 }
 
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+//apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

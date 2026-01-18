@@ -15,16 +15,19 @@
  */
 package com.readystatesoftware.chuck.internal.support;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.LongSparseArray;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 import com.readystatesoftware.chuck.Chuck;
 import com.readystatesoftware.chuck.R;
@@ -78,7 +81,7 @@ public class NotificationHelper {
         addToBuffer(transaction);
         if (!BaseChuckActivity.isInForeground()) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                    .setContentIntent(PendingIntent.getActivity(context, 0, Chuck.getLaunchIntent(context), 0))
+                    .setContentIntent(PendingIntent.getActivity(context, 0, Chuck.getLaunchIntent(context), FLAG_IMMUTABLE))
                     .setLocalOnly(true)
                     .setSmallIcon(R.drawable.chuck_ic_notification_white_24dp)
                     .setColor(ContextCompat.getColor(context, R.color.chuck_colorPrimary))
@@ -113,7 +116,7 @@ public class NotificationHelper {
     private NotificationCompat.Action getClearAction() {
         CharSequence clearTitle = context.getString(R.string.chuck_clear);
         Intent deleteIntent = new Intent(context, ClearTransactionsService.class);
-        PendingIntent intent = PendingIntent.getService(context, 11, deleteIntent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent intent = PendingIntent.getService(context, 11, deleteIntent, PendingIntent.FLAG_IMMUTABLE);
         return new NotificationCompat.Action(R.drawable.chuck_ic_delete_white_24dp,
             clearTitle, intent);
     }
